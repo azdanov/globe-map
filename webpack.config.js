@@ -29,6 +29,7 @@ module.exports = {
     externals: {
         d3: "d3",
         topojson: "topojson",
+        tip: "tip",
     },
     entry: {
         bundle: ["./src/js/index.js"],

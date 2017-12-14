@@ -9,6 +9,7 @@ D3.js Globe Map made for FreeCodeCamp.
 ## Tools
 
 * [d3](https://github.com/d3/d3)
+* [d3-tip](https://github.com/Caged/d3-tip)
 * [babel](https://github.com/babel/babel)
 * [webpack](https://github.com/webpack)
 * [eslint](https://github.com/eslint/eslint)
@@ -19,6 +20,7 @@ D3.js Globe Map made for FreeCodeCamp.
 * [gh-pages](https://github.com/tschaub/gh-pages)
 * [npm-run-all](https://github.com/mysticatea/npm-run-all)
 * [rimraf](https://github.com/isaacs/rimraf)
+* [world-atlas](https://github.com/topojson/world-atlas)
 
 ## Data
 

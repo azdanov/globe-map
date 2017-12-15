@@ -3,16 +3,22 @@ import "../css/index.css";
 
 const svg = d3.select("main svg").classed("map", true);
 
+const metricWeight = new function metricWeight() {
+    this.gram = 1;
+    this.kilogram = this.gram * 1000;
+    this.tonne = this.kilogram * 1000;
+}();
+
 // Order is important (water before land)
 const water = svg.append("path");
 const land = svg.append("path");
 const locations = svg.append("g");
 
 const format = mass => {
-    if (mass >= 10000) {
-        return `${mass / 10000} Tonnes`;
-    } else if (mass >= 1000) {
-        return `${mass / 1000} Kilograms`;
+    if (mass >= metricWeight.tonne) {
+        return `${mass / metricWeight.tonne} Tonnes`;
+    } else if (mass >= metricWeight.kilogram) {
+        return `${mass / metricWeight.kilogram} Kilograms`;
     }
     return `${mass} Grams`;
 };

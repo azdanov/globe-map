@@ -1,6 +1,6 @@
 {
     "name": "globe-map",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "D3.js Globe Map made for FreeCodeCamp",
     "main": "src/index.html",
     "repository": "git@github.com:azdanov/globe-map.git",

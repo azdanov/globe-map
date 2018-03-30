@@ -27,23 +27,33 @@ const tip = d3
     .tip()
     .attr("class", "d3-tip")
     .offset([-10, 0])
-    .html(d => `${d.name} (${d.year}): ${format(d.mass)} (${d.classification})`);
+    .html(
+        d => `${d.name} (${d.year}): ${format(d.mass)} (${d.classification})`
+    );
 svg.call(tip);
 
 d3
     .queue()
     .defer(d3.json, "https://unpkg.com/world-atlas@1/world/110m.json")
-    .defer(d3.json, "https://cdn.rawgit.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json")
+    .defer(
+        d3.json,
+        "https://cdn.rawgit.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json"
+    )
     .await((error, world, { features: data }) => {
         const countries = topojson.feature(world, world.objects.countries);
 
-        const meteorites = data.map(({ geometry: point, properties: { name, recclass, year, mass } }) => ({
-            name,
-            point,
-            mass: Number(mass),
-            classification: recclass,
-            year: new Date(year).getFullYear(),
-        }));
+        const meteorites = data.map(
+            ({
+                geometry: point,
+                properties: { name, recclass, year, mass }
+            }) => ({
+                name,
+                point,
+                mass: Number(mass),
+                classification: recclass,
+                year: new Date(year).getFullYear()
+            })
+        );
 
         const radiusValue = d => d.mass;
         const radiusScale = d3.scaleSqrt().range([0, 20]);
@@ -67,13 +77,17 @@ d3
 
             meteorites.forEach(d => {
                 const { point } = d;
-                d.projection = geoPath(point) ? projection(point.coordinates) : null;
+                d.projection = geoPath(point)
+                    ? projection(point.coordinates)
+                    : null;
             });
 
             const radiusCoefficient = 200;
             const k = Math.sqrt(projection.scale() / radiusCoefficient);
 
-            const circles = locations.selectAll("circle").data(meteorites.filter(d => d.projection));
+            const circles = locations
+                .selectAll("circle")
+                .data(meteorites.filter(d => d.projection));
 
             circles
                 .enter()
@@ -92,7 +106,8 @@ d3
         let rotate0;
         let coordinates0;
 
-        const coordinates = () => projection.rotate(rotate0).invert([d3.event.x, d3.event.y]);
+        const coordinates = () =>
+            projection.rotate(rotate0).invert([d3.event.x, d3.event.y]);
 
         const initialScale = projection.scale();
 
@@ -108,7 +123,7 @@ d3
                         const coordinates1 = coordinates();
                         projection.rotate([
                             rotate0[0] + coordinates1[0] - coordinates0[0],
-                            rotate0[1] + coordinates1[1] - coordinates0[1],
+                            rotate0[1] + coordinates1[1] - coordinates0[1]
                         ]);
                         render();
                     })

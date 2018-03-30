@@ -2,7 +2,8 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
-    font-family: "Apple Garamond", "Baskerville", "Times New Roman", "Droid Serif", "Times", "Source Serif Pro", serif;
+    font-family: "Apple Garamond", "Baskerville", "Times New Roman",
+        "Droid Serif", "Times", "Source Serif Pro", serif;
     justify-content: space-between;
     margin: 0;
 }

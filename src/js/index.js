@@ -1,12 +1,16 @@
-import { max } from "d3-array";
-import { drag } from "d3-drag";
-import { geoOrthographic, geoPath } from "d3-geo";
-import { scaleSqrt } from "d3-scale";
-import { event, select } from "d3-selection";
-import d3Tip from "d3-tip";
-import { zoom } from "d3-zoom";
+import {
+  event,
+  select,
+  scaleSqrt,
+  geoOrthographic,
+  geoPath,
+  drag,
+  max,
+  zoom
+} from "d3";
+import initTip from "d3-tip";
 import { feature } from "topojson";
-import world from "../../node_modules/world-atlas/world/110m.json";
+import world from "world-atlas/world/110m.json";
 import meteoriteData from "../assets/meteorite-strike-data.json";
 import "../css/index.css";
 
@@ -33,7 +37,7 @@ const format = mass => {
   return `${mass} Grams`;
 };
 
-const tip = d3Tip()
+const tip = initTip()
   .attr("class", "d3-tip")
   .offset([-10, 0])
   .html(d => `${d.name} (${d.year}): ${format(d.mass)} (${d.classification})`);

@@ -8,28 +8,28 @@ D3.js Globe Map made for FreeCodeCamp.
 
 ## Tools
 
-* [d3](https://github.com/d3/d3)
-* [d3-tip](https://github.com/Caged/d3-tip)
-* [babel](https://github.com/babel/babel)
-* [webpack](https://github.com/webpack)
-* [eslint](https://github.com/eslint/eslint)
-* [airbnb](https://github.com/airbnb/javascript)
-* [prettier](https://github.com/prettier/prettier)
-* [stylelint](https://github.com/stylelint/stylelint)
-* [cross-env](https://github.com/kentcdodds/cross-env)
-* [gh-pages](https://github.com/tschaub/gh-pages)
-* [npm-run-all](https://github.com/mysticatea/npm-run-all)
-* [rimraf](https://github.com/isaacs/rimraf)
-* [world-atlas](https://github.com/topojson/world-atlas)
+- [d3](https://github.com/d3/d3)
+- [d3-tip](https://github.com/Caged/d3-tip)
+- [babel](https://github.com/babel/babel)
+- [webpack](https://github.com/webpack)
+- [eslint](https://github.com/eslint/eslint)
+- [airbnb](https://github.com/airbnb/javascript)
+- [prettier](https://github.com/prettier/prettier)
+- [stylelint](https://github.com/stylelint/stylelint)
+- [cross-env](https://github.com/kentcdodds/cross-env)
+- [gh-pages](https://github.com/tschaub/gh-pages)
+- [npm-run-all](https://github.com/mysticatea/npm-run-all)
+- [rimraf](https://github.com/isaacs/rimraf)
+- [world-atlas](https://github.com/topojson/world-atlas)
 
 ## Data
 
-* [meteorite-strike-data.json](https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json)
+- [meteorite-strike-data.json](https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json)
 
 ## Build
 
-* `npm start` - start webpack-dev-server
-* `npm build` - build for production
+- `npm start` - start webpack-serve
+- `npm build` - build for production
 
 ## License
 

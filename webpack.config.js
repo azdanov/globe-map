@@ -1,88 +1,110 @@
+/* eslint-disable global-require */
+
 const path = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssnanoPlugin = require("@intervolga/optimize-cssnano-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
-const ENV = process.env.NODE_ENV;
+const devMode = process.env.NODE_ENV !== "production";
+const checkMode = process.env.NODE_ENV === "check";
 
-let plugins = [
+const config = {
+  mode: devMode ? "development" : "production",
+  entry: {
+    bundle: ["./src/js/index.js"]
+  },
+  output: {
+    filename: devMode ? "[name].js" : "[name].[hash].js",
+    path: path.resolve(__dirname, "dist")
+  },
+  devtool: devMode ? "eval-source-map" : "source-map",
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"]
+          }
+        }
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: !devMode,
+              importLoaders: 1
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: !devMode,
+              plugins: () => [require("autoprefixer")]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {}
+          }
+        ]
+      }
+    ]
+  },
+  externals: {
+    tip: "tip"
+  },
+  plugins: [
     new HtmlWebpackPlugin({
-        template: "./src/index.html",
-        inject: "body",
-        hash: true,
-        favicon: "src/favicon.ico"
+      template: "./src/index.html",
+      hash: !devMode,
+      favicon: "./src/assets/favicon.ico"
+    }),
+    new MiniCssExtractPlugin({
+      filename: devMode ? "[name].css" : "[name].[hash].css",
+      chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
     })
-];
+  ],
+  resolve: {
+    extensions: ["*", ".js"]
+  }
+};
 
-if (ENV === "production") {
-    plugins = [
-        ...plugins,
-        new ExtractTextPlugin({
-            filename: "[name].[hash].css"
-        })
-    ];
-} else {
-    plugins = [
-        ...plugins,
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-    ];
+if (!devMode) {
+  config.optimization = {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      }),
+      new OptimizeCssnanoPlugin({
+        sourceMap: true,
+        cssnanoOptions: {
+          preset: "default"
+        }
+      })
+    ],
+    splitChunks: {
+      chunks: "all"
+    }
+  };
 }
 
-module.exports = {
-    externals: {
-        d3: "d3",
-        topojson: "topojson",
-        tip: "tip"
-    },
-    entry: {
-        bundle: ["./src/js/index.js"]
-    },
-    devServer: {
-        contentBase: "./dist",
-        hot: false,
-        open: true
-    },
-    output: {
-        filename: "[name].[hash].js",
-        path: path.resolve(__dirname, "dist")
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: ["@babel/preset-env"]
-                    }
-                }
-            },
-            {
-                test: /\.css$/,
-                use:
-                    ENV === "production"
-                        ? ExtractTextPlugin.extract({
-                              fallback: "style-loader",
-                              use: ["css-loader"]
-                          })
-                        : ["style-loader", "css-loader"]
-            },
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {}
-                    }
-                ]
-            }
-        ]
-    },
-    devtool: ENV === "production" ? "source-map" : "eval-source-map",
-    plugins,
-    resolve: {
-        extensions: ["*", ".js"]
-    }
-};
+if (checkMode) {
+  config.plugins.push(new BundleAnalyzerPlugin());
+}
+
+module.exports = config;

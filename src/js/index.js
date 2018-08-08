@@ -1,38 +1,45 @@
 import {
+  drag,
   event,
-  select,
-  scaleSqrt,
   geoOrthographic,
   geoPath,
-  drag,
   max,
+  scaleSqrt,
+  select,
   zoom
 } from "d3";
 import initTip from "d3-tip";
 import { feature } from "topojson";
 import world from "world-atlas/world/110m.json";
-import meteoriteData from "../assets/meteorite-strike-data.json";
-import "../css/index.css";
+import meteorites from "./meteorData";
+import "../css/index.pcss";
 
-const svg = select("main svg").classed("map", true);
+const svg = select("#chart")
+  .append("div")
+  .classed("globe-container", true)
+  .append("svg")
+  .attr("preserveAspectRatio", "xMinYMin meet")
+  .attr("viewBox", "0 0 960 500")
+  .classed("globe", true);
 
-const metricWeight = new function metricWeight() {
-  this.gram = 1;
-  this.kilogram = this.gram * 1000;
-  this.tonne = this.kilogram * 1000;
-}();
+const metric = {
+  gram: 1,
+  kilogram: 1000,
+  tonne: 1000000
+};
 
+const grouping = svg.append("g").classed("internal", true);
 // Order is important (water before land)
-const water = svg.append("path");
-const land = svg.append("path");
-const locations = svg.append("g");
+const water = grouping.append("path");
+const land = grouping.append("path");
+const locations = grouping.append("g");
 
 const format = mass => {
-  if (mass >= metricWeight.tonne) {
-    return `${mass / metricWeight.tonne} Tonnes`;
+  if (mass >= metric.tonne) {
+    return `${mass / metric.tonne} Tonnes`;
   }
-  if (mass >= metricWeight.kilogram) {
-    return `${mass / metricWeight.kilogram} Kilograms`;
+  if (mass >= metric.kilogram) {
+    return `${mass / metric.kilogram} Kilograms`;
   }
   return `${mass} Grams`;
 };
@@ -42,19 +49,9 @@ const tip = initTip()
   .offset([-10, 0])
   .html(d => `${d.name} (${d.year}): ${format(d.mass)} (${d.classification})`);
 
-svg.call(tip);
+grouping.call(tip);
 
 const countries = feature(world, world.objects.countries);
-
-const meteorites = meteoriteData.features.map(
-  ({ geometry: point, properties: { name, recclass, year, mass } }) => ({
-    name,
-    point,
-    mass: Number(mass),
-    classification: recclass,
-    year: new Date(year).getFullYear()
-  })
-);
 
 const radiusValue = d => d.mass;
 const radiusScale = scaleSqrt().range([0, 20]);
@@ -86,21 +83,21 @@ const render = () => {
   const radiusCoefficient = 200;
   const k = Math.sqrt(projection.scale() / radiusCoefficient);
 
-  const circles = locations
-    .selectAll("circle")
+  const impacts = locations
+    .selectAll("impact")
     .data(meteorites.filter(d => d.projection));
 
-  circles
+  impacts
     .enter()
-    .append("circle")
+    .append("impact")
     .classed("location", true)
-    .merge(circles)
+    .merge(impacts)
     .attr("cx", d => d.projection[0])
     .attr("cy", d => d.projection[1])
     .attr("r", d => d.radius * k)
     .on("mouseover", tip.show)
     .on("mouseout", tip.hide);
-  circles.exit().remove();
+  impacts.exit().remove();
 };
 render();
 
@@ -111,7 +108,7 @@ const coordinates = () => projection.rotate(rotate0).invert([event.x, event.y]);
 
 const initialScale = projection.scale();
 
-svg
+grouping
   .call(
     drag()
       .on("start", () => {

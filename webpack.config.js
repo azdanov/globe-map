@@ -33,21 +33,29 @@ const config = {
         }
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.(pc|sa|sc|c)ss$/,
         use: [
           devMode ? "style-loader" : MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {
-              sourceMap: !devMode,
+              sourceMap: true,
               importLoaders: 1
             }
           },
           {
             loader: "postcss-loader",
             options: {
-              sourceMap: !devMode,
-              plugins: () => [require("autoprefixer")]
+              sourceMap: true,
+              plugins: () => [
+                require("autoprefixer"),
+                require("postcss-preset-env")({
+                  stage: 2,
+                  features: {
+                    "nesting-rules": true
+                  }
+                })
+              ]
             }
           }
         ]
@@ -76,10 +84,7 @@ const config = {
       filename: devMode ? "[name].css" : "[name].[hash].css",
       chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
     })
-  ],
-  resolve: {
-    extensions: ["*", ".js"]
-  }
+  ]
 };
 
 if (!devMode) {

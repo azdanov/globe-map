@@ -1,35 +1,26 @@
 # Globe Map
 
-D3.js Globe Map made for FreeCodeCamp.
+<p>D3.js Globe Map showing worldwide meteorite landings with additional information about weight and classification. <a href="https://azdanov.github.io/globe-map/">Live</a></p>
 
-![Chart](https://res.cloudinary.com/anton-zdanov/image/upload/c_scale,q_auto,w_580/v1513271777/Screen_Shot_2017-12-14_at_19.14.24_fbey8c.png)
-
-[Live](https://azdanov.js.org/globe-map/)
+![Globe](https://user-images.githubusercontent.com/6123841/43815024-41d26576-9ad6-11e8-9ae2-055b9b04f3ab.png)
 
 ## Tools
 
-- [d3](https://github.com/d3/d3)
-- [d3-tip](https://github.com/Caged/d3-tip)
-- [babel](https://github.com/babel/babel)
-- [webpack](https://github.com/webpack)
-- [eslint](https://github.com/eslint/eslint)
-- [airbnb](https://github.com/airbnb/javascript)
-- [prettier](https://github.com/prettier/prettier)
-- [stylelint](https://github.com/stylelint/stylelint)
-- [cross-env](https://github.com/kentcdodds/cross-env)
-- [gh-pages](https://github.com/tschaub/gh-pages)
-- [npm-run-all](https://github.com/mysticatea/npm-run-all)
-- [rimraf](https://github.com/isaacs/rimraf)
-- [world-atlas](https://github.com/topojson/world-atlas)
-
-## Data
-
-- [meteorite-strike-data.json](https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json)
+[d3](https://d3js.org/)
+[d3-tip](https://github.com/Caged/d3-tip)
+[TopoJSON](https://github.com/topojson/topojson)
+[World Atlas](https://github.com/topojson/world-atlas)
+[Webpack](https://webpack.js.org/)
+[Babel](https://babeljs.io/)
+[PostCSS](https://postcss.org/)
 
 ## Build
 
-- `npm start` - start webpack-serve
-- `npm build` - build for production
+- `yarn` - install dependencies.
+- `yarn start` - start `webpack-serve` in development.
+- `yarn build` - build for production to `dist` directory.
+- `yarn deploy` - build and deploy to Github Pages.
+- 
 
 ## License
 

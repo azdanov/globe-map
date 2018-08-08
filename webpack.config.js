@@ -48,7 +48,6 @@ const config = {
             options: {
               sourceMap: true,
               plugins: () => [
-                require("autoprefixer"),
                 require("postcss-preset-env")({
                   stage: 2,
                   features: {
@@ -59,20 +58,8 @@ const config = {
             }
           }
         ]
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {}
-          }
-        ]
       }
     ]
-  },
-  externals: {
-    tip: "tip"
   },
   plugins: [
     new HtmlWebpackPlugin({

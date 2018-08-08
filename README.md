@@ -6,13 +6,13 @@
 
 ## Tools
 
-[d3](https://d3js.org/)
-[d3-tip](https://github.com/Caged/d3-tip)
-[TopoJSON](https://github.com/topojson/topojson)
-[World Atlas](https://github.com/topojson/world-atlas)
-[Webpack](https://webpack.js.org/)
-[Babel](https://babeljs.io/)
-[PostCSS](https://postcss.org/)
+- [d3](https://d3js.org/)
+- [d3-tip](https://github.com/Caged/d3-tip)
+- [TopoJSON](https://github.com/topojson/topojson)
+- [World Atlas](https://github.com/topojson/world-atlas)
+- [Webpack](https://webpack.js.org/)
+- [Babel](https://babeljs.io/)
+- [PostCSS](https://postcss.org/)
 
 ## Build
 
@@ -20,8 +20,7 @@
 - `yarn start` - start `webpack-serve` in development.
 - `yarn build` - build for production to `dist` directory.
 - `yarn deploy` - build and deploy to Github Pages.
-- 
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](./LICENSE)

@@ -53,14 +53,14 @@ grouping.call(tip);
 
 const countries = feature(world, world.objects.countries);
 
-const radiusValue = d => d.mass;
+const radiusValue = r => r.mass;
 const radiusScale = scaleSqrt().range([0, 20]);
 
 radiusScale.domain([0, max(meteorites, radiusValue)]);
 
-meteorites.forEach(d => {
+meteorites.forEach(m => {
   // eslint-disable-next-line no-param-reassign
-  d.radius = radiusScale(radiusValue(d));
+  m.radius = radiusScale(radiusValue(m));
 });
 
 const projection = geoOrthographic();
@@ -74,27 +74,27 @@ const render = () => {
 
   land.attr("class", "land").attr("d", path(countries));
 
-  meteorites.forEach(d => {
-    const { point } = d;
+  meteorites.forEach(m => {
+    const { point } = m;
     // eslint-disable-next-line no-param-reassign
-    d.projection = path(point) ? projection(point.coordinates) : null;
+    m.projection = path(point) ? projection(point.coordinates) : null;
   });
 
   const radiusCoefficient = 200;
   const k = Math.sqrt(projection.scale() / radiusCoefficient);
 
   const impacts = locations
-    .selectAll("impact")
+    .selectAll("circle")
     .data(meteorites.filter(d => d.projection));
 
   impacts
     .enter()
-    .append("impact")
+    .append("circle")
     .classed("location", true)
     .merge(impacts)
-    .attr("cx", d => d.projection[0])
-    .attr("cy", d => d.projection[1])
-    .attr("r", d => d.radius * k)
+    .attr("cx", x => x.projection[0])
+    .attr("cy", y => y.projection[1])
+    .attr("r", r => r.radius * k)
     .on("mouseover", tip.show)
     .on("mouseout", tip.hide);
   impacts.exit().remove();

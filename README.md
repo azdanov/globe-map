@@ -20,6 +20,7 @@
 - `yarn start` - start `webpack-serve` in development.
 - `yarn build` - build for production to `dist` directory.
 - `yarn deploy` - build and deploy to Github Pages.
+- `yarn check` - analyze size of dependencies in the bundle.
 
 ## License
 

@@ -6,13 +6,13 @@
 
 ## Tools
 
-- [d3](https://d3js.org/)
-- [d3-tip](https://github.com/Caged/d3-tip)
-- [TopoJSON](https://github.com/topojson/topojson)
-- [World Atlas](https://github.com/topojson/world-atlas)
-- [Webpack](https://webpack.js.org/)
-- [Babel](https://babeljs.io/)
-- [PostCSS](https://postcss.org/)
+- [d3](https://d3js.org/) - JavaScript library for visualizing data using web standards.
+- [d3-tip](https://github.com/Caged/d3-tip) - Tooltips for d3.js visualizations.
+- [TopoJSON](https://github.com/topojson/topojson) - An extension of GeoJSON that encodes topology.
+- [World Atlas](https://github.com/topojson/world-atlas) - Pre-built TopoJSON from Natural Earth.
+- [Webpack](https://webpack.js.org/) - A bundler for JavaScript and friends.
+- [Babel](https://babeljs.io/) - A compiler for writing next generation JavaScript.
+- [PostCSS](https://postcss.org/) - A tool for transforming CSS with JavaScript.
 
 ## Build
 
